@@ -1,0 +1,87 @@
+## London mid winner (synced with config.btc.london-mid-engulf-winner.toml): skip Mon + 17–18 IST, BE + 1:10
+
+[market]
+symbol = "BTCUSDT"
+market_type = "futures"
+interval = "3m"
+level_interval = "3m"
+anchor_interval = "15m"
+anchor_position = "first_session"
+tick_size = 0.10
+step_size = 0.001
+min_notional = 50.0
+
+[levels]
+doji_mode = "adaptive"
+doji_tol_ticks = 10
+adaptive_max_ticks = 50
+require_opposite_halves = true
+steps_per_side = 12
+include_midpoints = false
+min_spacing_ticks = 1
+
+[backtest]
+start = "2021-08-01"
+end = "2026-08-01"
+initial_equity = 1000.0
+taker_fee = 0.0005
+fee_discount = 0.9
+use_real_funding = false
+slippage_usdt_per_fill = 0.0
+slippage_bps_per_fill = 0.0
+
+[strategy]
+name = "london-mid-engulf"
+
+[strategy.london_mid_engulf]
+stop_usdt = 400.0
+reward_risk = 10.0
+use_reward_risk_for_target = true
+inverse = false
+ema_period = 9
+mid_touch_tol_ticks = 8
+risk_pct = 2.0
+compound = true
+skip_first_candles = 1
+max_hold_bars = 0
+skip_entry_weekdays = [5, 6, 0]
+skip_entry_hours_ist = [17, 18]
+# Optional seasonal filter (strong in backtest; validate forward): skip_entry_months = [5, 6, 12]
+require_strict_pattern = false
+pattern_whitelist = [
+  "bullish_engulfing",
+  "bearish_engulfing",
+  "bullish_harami",
+  "bearish_harami",
+  "piercing_line",
+  "dark_cloud_cover",
+  "hammer",
+  "shooting_star",
+  "dragonfly_doji",
+  "gravestone_doji",
+  "doji",
+  "long_lower_wick",
+  "long_upper_wick",
+  "small_body_spinning_top",
+  "bullish_marubozu_at_low",
+  "bearish_marubozu_at_high",
+]
+
+# Trailing (trend-style exit). Sweep: python3 tools/sweep_london_mid_trailing.py
+[strategy.london_mid_engulf.trailing]
+enabled = true
+mode = "breakeven"
+use_target = true
+be_trigger_usd = 200
+be_offset_usd = 0
+trail_buffer_usd = 25
+max_trail_usd = 0
+pivot_bars = 1
+swing_interval = "exec"
+
+[risk]
+max_trades_per_day = 1
+
+[paths]
+cache_dir = "out/cache"
+reports_dir = "out/reports"

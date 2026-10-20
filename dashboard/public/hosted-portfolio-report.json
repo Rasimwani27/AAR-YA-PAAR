@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "start": "2021-08-01",
+    "end": "2026-08-01",
+    "symbol": "BTCUSDT",
+    "strategy": "AFNY fade-reversal (NY + 4h trend)",
+    "risk_pct": 3,
+    "stop_usdt": 500,
+    "target_usdt": 1500,
+    "rr": 3,
+    "risk_label": "3% compound \u00b7 fees included"
+  },
+  "initial_equity": 1000,
+  "rows": [
+    {
+      "year": 2021,
+      "trades": 13,
+      "wins": 6,
+      "losses": 7,
+      "win_pct": 46.2,
+      "gross": 424.98,
+      "fees": 118.14,
+      "net": 306.84,
+      "return_pct": 30.68,
+      "equity_end": 1306.84
+    },
+    {
+      "year": 2022,
+      "trades": 21,
+      "wins": 9,
+      "losses": 12,
+      "win_pct": 42.9,
+      "gross": 780.96,
+      "fees": 190.85,
+      "net": 590.11,
+      "return_pct": 45.16,
+      "equity_end": 1896.95
+    },
+    {
+      "year": 2023,
+      "trades": 23,
+      "wins": 9,
+      "losses": 14,
+      "win_pct": 39.1,
+      "gross": 908.86,
+      "fees": 209.03,
+      "net": 699.83,
+      "return_pct": 36.89,
+      "equity_end": 2596.78
+    },
+    {
+      "year": 2024,
+      "trades": 32,
+      "wins": 11,
+      "losses": 21,
+      "win_pct": 34.4,
+      "gross": 837.58,
+      "fees": 290.82,
+      "net": 546.76,
+      "return_pct": 21.06,
+      "equity_end": 3143.54
+    },
+    {
+      "year": 2025,
+      "trades": 19,
+      "wins": 9,
+      "losses": 10,
+      "win_pct": 47.4,
+      "gross": 1567.1,
+      "fees": 172.67,
+      "net": 1394.43,
+      "return_pct": 44.36,
+      "equity_end": 4537.97
+    },
+    {
+      "year": 2026,
+      "trades": 10,
+      "wins": 3,
+      "losses": 7,
+      "win_pct": 30.0,
+      "gross": 104.68,
+      "fees": 90.88,
+      "net": 13.8,
+      "return_pct": 0.3,
+      "equity_end": 4551.77
+    }
+  ],
+  "summary": {
+    "trades": 118,
+    "wins": 47,
+    "losses": 71,
+    "win_pct": 39.83,
+    "gross": 4624.16,
+    "fees": 1072.39,
+    "net": 3551.77,
+    "roi_pct": 355.18,
+    "final_equity": 4551.77
+  }
+}

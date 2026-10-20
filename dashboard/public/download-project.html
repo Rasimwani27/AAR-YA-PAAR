@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Download AAR-YA-PAAR project</title>
+    <style>
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 36rem;
+        margin: 2.5rem auto;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+      button,
+      a.btn {
+        display: inline-block;
+        margin: 0.5rem 0.5rem 0.5rem 0;
+        padding: 0.75rem 1.25rem;
+        background: #111;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        font-size: 1rem;
+      }
+      #status {
+        margin-top: 1rem;
+        color: #444;
+        font-size: 0.9rem;
+      }
+      code {
+        background: #f1f5f9;
+        padding: 0.1rem 0.35rem;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Download project zip</h1>
+    <p>
+      If a link opens a garbled “binary” page, use <strong>Method 1</strong> (JavaScript save). After unzip:
+      <code>cd dashboard &amp;&amp; npm install</code>.
+    </p>
+
+    <button type="button" id="dl-js">Method 1 — Save zip (recommended)</button>
+    <a class="btn" id="dl-api" href="/api/download-zip?confirm=1">Method 2 — Direct API download</a>
+    <button type="button" class="btn" id="dl-static">Method 3 — Static file (click once)</button>
+
+    <p id="status"></p>
+
+    <h2>Portfolio PDF only</h2>
+    <a class="btn" href="/Rassim_Muzaffar_Trading_Portfolio.pdf" target="_blank" rel="noopener">View PDF</a>
+
+    <script>
+      const status = document.getElementById("status");
+      document.getElementById("dl-js").addEventListener("click", async () => {
+        status.textContent = "Downloading…";
+        try {
+          const res = await fetch("/api/download-zip?confirm=1");
+          if (!res.ok) throw new Error("HTTP " + res.status);
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "AAR-YA-PAAR-download.zip";
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          status.textContent = "Saved AAR-YA-PAAR-download.zip — check your Downloads folder.";
+        } catch (e) {
+          status.textContent = "Failed: " + (e && e.message ? e.message : e);
+        }
+      });
+      document.getElementById("dl-static").addEventListener("click", () => {
+        window.open("/AAR-YA-PAAR-download.zip", "_blank", "noopener,noreferrer");
+        status.textContent = "Opened zip in a new tab — use Save as if your browser shows the file.";
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,125 @@
+## AAR-YA-PAAR — configuration
+## See STRATEGY.md for what each level-engine knob means.
+
+[market]
+symbol = "BTCUSDT"
+# "futures" = USD-M perpetual (fapi). Data source and execution both follow this.
+market_type = "futures"
+interval = "15m"          # EXECUTION timeframe (entries, exits, the setup)
+# The level grid is a daily structure and keeps its own timeframe. The doji rule
+# needs small candles to work: at 3m it finds valid levels on 89.3% of days, at
+# 15m only 11.5% (median 15m body is $82, so "open == close" almost never holds).
+# Set this to "15m" to build levels from 15m candles too.
+level_interval = "3m"
+anchor_interval = "15m"
+# Which candle on that timeframe is the anchor:
+#   first_session -> the candle OPENING at 05:30 (15m: 05:30-05:45); its CLOSE
+#                    is the price at 05:45. This is the 05:30 candle as labelled
+#                    on the chart, and the first completed candle of the session.
+#   pre_session   -> the candle CLOSING at 05:30 (15m: 05:15-05:30); its close
+#                    is the price AT 05:30 (identical at every timeframe).
+anchor_position = "first_session"
+margin_type = "ISOLATED"   # ISOLATED | CROSSED
+tick_size = 0.10      # PRICE_FILTER  — verified live
+step_size = 0.001     # LOT_SIZE      — verified live
+min_notional = 50.0   # MIN_NOTIONAL  — verified live
+
+[levels]
+# How a "3-minute candle with the same opening and closing price" is identified.
+# Measured over 366 days of BTCUSDT perp (run `python3 -m aar diagnose`):
+#
+#   mode          valid days   median D   grid/session-range
+#   strict            5.7%        $186          2.60
+#   tick (1t)        13.4%        $244          2.70
+#   abs 10t ($1)     44.0%        $363          2.78
+#   abs 50t ($5)     90.7%        $615          3.81
+#   adaptive         90.7%        $418          2.66   <- default
+#
+# adaptive is the default because it reaches the same coverage as a $5 fixed
+# tolerance while keeping D far tighter — it uses the SMALLEST tolerance that
+# works on each individual day rather than one loose setting for every day.
+# Set "strict" to reproduce the literal specification.
+doji_mode = "adaptive"
+doji_tol_ticks = 10
+adaptive_max_ticks = 50
+
+# Require the upper doji to reach the top half of the session range and the
+# lower doji the bottom half. Without this one candle can win both slots and
+# collapse D to zero. Turn off only to reproduce the literal spec.
+require_opposite_halves = true
+
+steps_per_side = 12      # N full-D steps each way
+# false -> only the full-D levels + anchor (2N+1 = 7 lines), no half-D midpoints
+include_midpoints = false
+min_spacing_ticks = 1   # D below this marks the day invalid
+min_session_candles = 0   # 0 = derive from interval (28 at 15m)
+
+[backtest]
+start = "2025-08-01"
+end = "2026-08-01"
+initial_equity = 1000.0
+taker_fee = 0.0005      # 0.05%
+maker_fee = 0.0002      # 0.02%
+slippage_ticks = 1      # plus slippage_bps below
+slippage_bps = 0.0
+
+# --- fee optimisation -------------------------------------------------------
+fee_discount = 0.9            # pay fees in BNB: 10% off every rate
+post_only_entry = true        # rest a GTX limit at the entry instead of crossing
+entry_ttl_candles = 2         # cancel the resting entry after N candles
+entry_buffer_seconds = 12     # place the limit N sec before candle close, not after
+post_only_through_ticks = 1   # queue proxy: price must trade THROUGH by 1 tick
+limit_target = true           # target exits as resting LIMIT (maker, no slippage)
+leverage = 40.0         # step 7
+funding_rate = 0.0001   # fallback when actual funding history is unavailable
+use_real_funding = true
+
+[strategy]
+name = "fade-reversal"
+
+[strategy.fade_reversal]
+ema_period = 3
+ema_mode = "cross"
+stop_usdt = 500.0
+target_usdt = 1500.0
+reward_risk = 3.0
+risk_pct = 3.0
+level_cross_tol_ticks = 3
+level_kinds = "anchor"
+skip_first_candles = 2
+compound = true
+analysis_session = "london"
+execution_session = "new_york"
+skip_entry_weekdays = [5, 6]
+skip_entry_months = [5, 9]
+regime_min_return_30d = -0.15
+require_strict_pattern = true
+pattern_whitelist = [
+  "bullish_engulfing",
+  "bearish_engulfing",
+  "hammer",
+  "shooting_star",
+  "dragonfly_doji",
+  "gravestone_doji",
+]
+trend_interval = "4h"
+trend_ema_period = 50
+
+[risk]
+risk_per_trade_pct = 3.0
+max_qty = 100.0            # hard cap in BTC; step-6 sizing must not be clipped by it
+max_trades_per_day = 1     # one trade per day, then stand down
+flatten_at_london_close = false  # hold to stop or target, no 18:30 cut
+
+[live]
+# Every code path defaults to testnet. Live requires BOTH testnet = false here
+# AND environment variable AAR_ALLOW_LIVE=1.
+testnet = true
+dry_run = true          # log intended orders, place nothing
+poll_seconds = 5
+
+[paths]
+cache_dir = "out/cache"
+levels_dir = "out/levels"
+reports_dir = "out/reports"
+charts_dir = "out/charts"
