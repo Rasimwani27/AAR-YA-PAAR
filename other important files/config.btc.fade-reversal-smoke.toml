@@ -1,0 +1,66 @@
+## AFNY smoke test (1 month) — dashboard quick run
+
+[market]
+symbol = "BTCUSDT"
+market_type = "futures"
+interval = "3m"
+level_interval = "3m"
+anchor_interval = "15m"
+anchor_position = "first_session"
+tick_size = 0.10
+step_size = 0.001
+min_notional = 50.0
+
+[levels]
+doji_mode = "adaptive"
+doji_tol_ticks = 10
+adaptive_max_ticks = 50
+require_opposite_halves = true
+steps_per_side = 12
+include_midpoints = false
+min_spacing_ticks = 1
+
+[backtest]
+start = "2025-07-01"
+end = "2025-08-01"
+initial_equity = 1000.0
+taker_fee = 0.0005
+fee_discount = 0.9
+
+[strategy]
+name = "fade-reversal"
+
+[strategy.fade_reversal]
+ema_period = 3
+ema_mode = "cross"
+stop_usdt = 500.0
+target_usdt = 1500.0
+reward_risk = 3.0
+risk_pct = 3.0
+level_cross_tol_ticks = 3
+level_kinds = "anchor"
+skip_first_candles = 2
+compound = true
+analysis_session = "london"
+execution_session = "new_york"
+skip_entry_weekdays = [5, 6]
+skip_entry_months = [5, 9]
+regime_min_return_30d = -0.15
+require_strict_pattern = true
+pattern_whitelist = [
+  "bullish_engulfing",
+  "bearish_engulfing",
+  "hammer",
+  "shooting_star",
+  "dragonfly_doji",
+  "gravestone_doji",
+]
+trend_interval = "4h"
+trend_ema_period = 50
+
+[risk]
+max_trades_per_day = 1
+
+[paths]
+cache_dir = "out/cache"
+reports_dir = "out/reports"

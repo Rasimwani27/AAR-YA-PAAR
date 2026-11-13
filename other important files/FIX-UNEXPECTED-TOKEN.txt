@@ -1,0 +1,44 @@
+"Unexpected token" when you run START-HERE-43123.bat
+====================================================
+
+If the error points to start-dashboard.ps1 line 67-86 with garbled text like "â€":
+  That is a PowerShell script encoding bug (fixed in latest zip).
+  Quick fix without re-download: open scripts\start-dashboard.ps1 in Notepad,
+  find any "â€" or long dash characters and replace with a normal hyphen - .
+
+Your Node is OK if it is v20+ (including v22 or v24). Then check these:
+
+1) FIRST BUILD STILL RUNNING (very common on i5 + 4 GB + HDD)
+   The npm window must finish "npm run build" before the site works.
+   Wait until you see Ready (can take 10-25 minutes).
+   Then open: http://127.0.0.1:43123/api/ping
+   Must show: "ok":true and "service":"aar-dashboard"
+
+2) ERROR IN THE NPM WINDOW (copy this text)
+   Open the SECOND black window (npm run serve:alt).
+   Red lines matter — common ones:
+   - Cannot find module ...  -> run REBUILD-DASHBOARD.bat
+   - JavaScript heap out of memory -> close Chrome, run REBUILD-DASHBOARD.bat
+   - EPERM or EBUSY -> reboot PC, run START-HERE again
+
+3) WRONG FOLDER / INCOMPLETE ZIP
+   Folder must contain: START-HERE-43123.bat, dashboard\, aar\
+   Run START-HERE from C:\AAR-YA-PAAR\ not from inside dashboard\
+
+4) NODE 24 ONLY — if nothing else helps
+   Next.js is tested most on Node 20–22 LTS.
+   Install Node 22 LTS from https://nodejs.org/ (you can keep Node 24 too).
+   Close all cmd windows, run START-HERE-43123.bat again.
+
+5) CLEAN REBUILD
+   Double-click REBUILD-DASHBOARD.bat in the project folder.
+   When it says Build OK, run START-HERE-43123.bat.
+
+6) DOCTOR
+   powershell -ExecutionPolicy Bypass -File .\scripts\doctor-dashboard.ps1
+
+Python ZoneInfo / Asia/Kolkata error on Windows:
+  Fixed in latest code (uses fixed IST offset, no tzdata package).
+  Or: py -3 -m pip install tzdata
+
+Send support: output of  node -v  and the first 5 red lines from the npm window.

@@ -1,0 +1,18 @@
+WRONG:  C:\Users\shady\Downloads\START-HERE-43123.bat alone
+         (no scripts folder -> PowerShell error -File start-dashboard.ps1 does not exist)
+
+RIGHT:  Extract AAR-YA-PAAR.zip fully, e.g. to C:\AAR-YA-PAAR
+
+You must see ALL of these in ONE folder:
+  C:\AAR-YA-PAAR\START-HERE-43123.bat
+  C:\AAR-YA-PAAR\scripts\start-dashboard.ps1
+  C:\AAR-YA-PAAR\dashboard\package.json
+  C:\AAR-YA-PAAR\aar\__main__.py
+
+Steps (Windows):
+  1. Right-click AAR-YA-PAAR.zip -> Extract All
+  2. Choose folder: C:\AAR-YA-PAAR  (create new folder if needed)
+  3. Open File Explorer -> C:\AAR-YA-PAAR
+  4. Double-click START-HERE-43123.bat from THAT window path
+
+If zip extracts as nested AAR-YA-PAAR\AAR-YA-PAAR\, open the inner folder that has scripts\.

@@ -1,0 +1,12 @@
+AAR-YA-PAAR — after download
+============================
+
+1. Right-click AAR-YA-PAAR.zip → Extract All → choose Desktop or Documents.
+2. Open the extracted folder (must contain START-HERE-43123.bat and folder "dashboard").
+3. Double-click START-HERE-43123.bat — wait for "Ready" (first run may build ~1 minute).
+4. Browser: http://127.0.0.1:43123/
+5. Trading desk should show Build: 2026.11.11-manual-trade (and "Manual trade" tab)
+6. Test Binance with button 2 (works online on Vercel too after redeploy).
+
+If zip won't open: download again from /AAR-YA-PAAR.zip on the site (URL must end in .zip).
+If Downloads shows Type "File" with no .zip, rename to AAR-YA-PAAR.zip then Extract All.

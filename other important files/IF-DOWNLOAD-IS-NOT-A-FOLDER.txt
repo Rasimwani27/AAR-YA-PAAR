@@ -1,0 +1,23 @@
+Your download is NOT supposed to be a folder yet
+===============================================
+
+What you see in Downloads (403 KB, Type "File", name like "AAR-YA-PAAR-download 7")
+is a ZIP archive that lost its .zip extension. It is normal — fix in 30 seconds:
+
+OPTION A — automatic (Windows)
+  1. Sync this repo OR copy scripts\FIX-WINDOWS-ZIP-DOWNLOAD.bat to your PC
+  2. Double-click FIX-WINDOWS-ZIP-DOWNLOAD.bat
+  3. It renames the file to AAR-YA-PAAR.zip and extracts a folder in Downloads\AAR-YA-PAAR
+
+OPTION B — manual
+  1. In Downloads, rename the file to exactly:  AAR-YA-PAAR.zip
+     (Right-click -> Rename — add .zip at the end)
+  2. Right-click AAR-YA-PAAR.zip -> Extract All
+  3. Open the extracted folder -> START-HERE-43123.bat
+
+Use the file WITH extension from the repo (best):
+  AAR-YA-PAAR.zip   or   AAR-YA-PAAR-download.zip
+(both in the project root — ~403 KB)
+
+GitHub direct link (must end in .zip):
+  https://github.com/Rasimwani27/AAR-YA-PAAR/raw/main/AAR-YA-PAAR.zip

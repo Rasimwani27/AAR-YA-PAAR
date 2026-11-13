@@ -1,0 +1,46 @@
+Can't download AAR-YA-PAAR.zip?
+================================
+
+METHOD A — PowerShell (best if ANY old copy still runs)
+-------------------------------------------------------
+1. Double-click START-HERE-43123.bat on your OLD folder (keep window open).
+2. Open PowerShell in your project folder (or anywhere).
+3. Run:
+
+   powershell -ExecutionPolicy Bypass -File "C:\path\to\your\aar\scripts\GET-LATEST-AAR.ps1"
+
+   Or one line (save to Downloads):
+
+   Invoke-WebRequest -Uri "http://127.0.0.1:43123/api/download-zip?confirm=1" -OutFile "$env:USERPROFILE\Downloads\AAR-YA-PAAR.zip" -UseBasicParsing
+
+4. Extract All -> run START-HERE-43123.bat from the NEW extract.
+
+
+METHOD B — Small patch only (~50 KB)
+--------------------------------------
+If full zip fails, download AAR-UPDATE-MANUAL-TRADE.zip from:
+  http://127.0.0.1:43123/AAR-UPDATE-MANUAL-TRADE.zip
+(or from the dashboard /download page)
+
+Extract ON TOP of your existing folder (replace files).
+Run UPDATE-FROM-PATCH.bat, restart START-HERE-43123.bat.
+
+
+METHOD C — Browser
+------------------
+1. Open http://127.0.0.1:43123/download
+2. Click "Alternate API download (same zip)" — NOT a plain link that opens gibberish.
+3. File MUST be named AAR-YA-PAAR.zip (if Windows saved "file", rename it).
+
+
+METHOD D — Git pull
+-------------------
+If you created a repo from Cursor:
+  git pull
+
+Build should show: 2026.11.11-manual-trade
+
+
+Still stuck?
+------------
+Reply in Cursor with: browser name, exact error, and whether START-HERE-43123.bat works at all.

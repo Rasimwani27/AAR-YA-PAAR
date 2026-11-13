@@ -1,0 +1,25 @@
+Port 43123 shows LISTENING but /api/ping fails (ERR_EMPTY_RESPONSE)
+==================================================================
+
+netstat shows PID on 43123 but tasklist shows Cursor.exe (not node.exe)
+-> Cursor forwarded this port from a Cloud Agent. It is NOT the AAR dashboard.
+
+Fix (you already removed 43123 in Cursor — good):
+  1. Confirm port is free:  netstat -ano | findstr :43123
+     (no LISTENING line, or only node.exe after you start the bat)
+  2. Double-click START-HERE-43123.bat — wait for Ready
+  3. curl http://127.0.0.1:43123/api/ping
+     Must show: {"ok":true,"service":"aar-dashboard"}
+
+START-HERE opens and closes too fast?
+  - That is normal if it succeeded: look for a SECOND cmd window (npm) — keep that one open.
+  - Updated START-HERE-43123.bat now pauses so you can read the message.
+  - Or double-click START-DASHBOARD-MANUAL.bat — everything runs in ONE window that stays open.
+
+If Cursor grabs 43123 again:
+  - Do not forward Cloud Agent port 43123 to your PC while running local lab
+  - Or use a different forward port in Cursor and open that URL only for remote dev
+
+Scripts:
+  powershell -File scripts\doctor-dashboard.ps1
+  powershell -File scripts\assert-dashboard-port.ps1 -Port 43123

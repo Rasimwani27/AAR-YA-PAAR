@@ -1,0 +1,19 @@
+SIMPLE — like before
+====================
+
+NEW FOLDER (recommended):
+  Double-click:  DOWNLOAD-NEW-FOLDER.bat
+  -> zip goes to Documents\AAR-YA-PAAR-YYYY-MM-DD (Explorer opens)
+
+OR browser only:
+1. Double-click:  CLICK-ME-GET-UPDATES.bat
+
+2. Wait (first time can take many minutes). Do NOT close the black "npm" window.
+
+3. Your browser opens the download page. Click the yellow button to save the zip.
+
+4. Extract All, then use START-HERE-43123.bat from the NEW folder for daily use.
+
+If nothing opens: install Node.js LTS from https://nodejs.org/ then click again.
+
+Full lab (not just download): START-HERE-43123.bat

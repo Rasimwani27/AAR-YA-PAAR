@@ -1,0 +1,24 @@
+AAR-YA-PAAR — download (must be .zip, then extract to get a FOLDER)
+===================================================================
+
+In this repo (pick either name — same file):
+
+  AAR-YA-PAAR.zip
+  AAR-YA-PAAR.zip   (always use this name — must end in .zip)
+
+GitHub browser link (note the .zip at the end):
+
+  https://github.com/Rasimwani27/AAR-YA-PAAR/raw/main/AAR-YA-PAAR.zip
+
+If Windows shows Type "File" with NO .zip (e.g. "AAR-YA-PAAR-download 7"):
+  → Read IF-DOWNLOAD-IS-NOT-A-FOLDER.txt
+  → Or run scripts\FIX-WINDOWS-ZIP-DOWNLOAD.bat
+
+After Extract All:
+  1. START-HERE-43123.bat
+  2. http://127.0.0.1:43123/
+
+24/7 + Vercel dashboard + outside access:
+  docs/SETUP-OLD-PC-VERCEL-REMOTE-ACCESS.md
+Old PC only: docs/RUN-ON-OLD-PC-AT-HOME.md
+Cloud VPS: docs/RUN-24-7-WITHOUT-LAPTOP.md
